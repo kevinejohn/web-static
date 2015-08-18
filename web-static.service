@@ -1,0 +1,22 @@
+[Unit]
+Description=Hosting static files
+After=network.target docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker rm -f web-static
+
+ExecStart=/usr/bin/docker run --name web-static \
+    -v /home/core/web-static:/data:ro \
+    -e PORT=8888 \
+    -e NODE_ENV=production \
+    -p 80:8888/tcp \
+    --env-file=/etc/environment \
+    --rm node node /data/app.js
+
+Restart=always
+
+# Stop
+ExecStop=/usr/bin/docker stop web-static
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,22 @@
+{
+  "name": "web-static",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "sync": "rsync --archive --progress --compress ./ core@$WEB_STATIC:/home/core/web-static",
+    "enable": "ssh core@$WEB_STATIC sudo systemctl enable /home/core/web-static/web-static.service",
+    "stop": "ssh core@$WEB_STATIC sudo systemctl stop web-static.service",
+    "start": "ssh core@$WEB_STATIC sudo systemctl start web-static.service",
+    "init": "npm run sync && npm run enable && npm run start",
+    "restart": "npm run sync && npm run stop && npm run start"
+  },
+  "author": "Kevin Johnson <kevinejohn@gmail.com> (http://kevinejohn.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1"
+  }
+}
