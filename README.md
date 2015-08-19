@@ -10,7 +10,7 @@
     # Copy files to the public folder
     rsync --archive --progress --compress ~/some_folder/ core@$WEB_STATIC:/home/core/web-static/public
 
-    # DONE
+    # DONE. Go to the IP address to see your hosted files
 
 
 # Reload

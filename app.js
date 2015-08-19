@@ -25,14 +25,16 @@ app.get('/index.html', function (req, res) {
 
 app.get('/test', function(req, res) {
   res.send('Works');
-  
-  // fs.readFile(__dirname + '/somefile', 'utf8', function(err, text){
-  //   res.end(text);
-  // });
 });
 
-
 app.use('/', express.static(__dirname + '/public/'));
+
+app.use(function(req, res, next) {
+  // Used for React app routes
+  fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text){
+    res.end(text);
+  });
+});
 
 app.listen(port);
 console.log('WEB: Server up and running, listening on port ' + port);
